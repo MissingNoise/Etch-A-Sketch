@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Etch-A-Sketch</title>
+    </head>
+    <body>
+        <style>
+            #container{
+                width: 600px;
+                height: 600px;
+                border: 1px solid #000;
+                display: grid;
+                flex-wrap: wrap;
+            }
+            #container div {
+                border: 1px solid #ddd;
+            }
+            .cell:hover {
+                background-color: black;
+            }
+        </style>
+        <button id="reset">Reset</button>
+        <div id="container"></div>
+        
+
+
+        <script>
+            let startGrid = 16;
+
+            const reset = document.querySelector('#reset');
+            const grid = document.querySelector('#container');
+
+            function createGrid(s) {
+                let gridSize = s;
+                for (i = 0; i <(gridSize*gridSize); i++){
+                    let cell = document.createElement('div');
+                    container.appendChild(cell).className = i;
+                    shadeGray(cell);
+                }
+                container.setAttribute('style', 'grid-template-columns:repeat('+ gridSize +', auto', 'grid-template-rows:repeat('+ gridSize +', auto)');
+            }
+            
+            function shadeGray(c){
+                c.addEventListener('mouseover', () => {
+                    c.style.cssText = 'Background-color: #ccc';
+                });
+                c.addEventListener('touches', () => {
+                    c.style.cssText = 'Background-color: #ccc';
+                });
+            }
+            createGrid(startGrid);
+
+            let pGrid = () => startGrid = prompt("Enter a new grid size(2-99):")
+
+            reset.addEventListener('click', () => {
+                pGrid()
+                while (startGrid < 2 || startGrid > 99) {pGrid();}
+                while (grid.firstChild) {
+                    grid.removeChild(grid.lastChild);
+                }
+                createGrid(startGrid);
+            });
+
+        </script>
+    </body>
+</html>
